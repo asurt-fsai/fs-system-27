@@ -1,0 +1,23 @@
+name: Send Discord Commit Message on Push
+on: [push]
+
+permissions:
+  contents: read
+
+jobs:
+  discord_notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Send Discord Commit Alert
+        uses: tristanbudd/discord-commit-github-action@master
+        with:
+          webhook-url: ${{ secrets.WEBHOOK_URL }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          show-commit-message: true
+          show-changed-files: true
+          show-commit-branch: true
+          show-commit-author: true
+          show-commit-link: true

@@ -1,0 +1,7 @@
+/control/                           @asurt-fsai/leaders
+/slam/                              @asurt-fsai/leaders
+/perception-camera/                 @asurt-fsai/leaders
+/perception-lidar/                  @asurt-fsai/leaders
+/classical-planning/                @asurt-fsai/leaders
+/deeplearning-planning/             @asurt-fsai/leaders
+/skidpad-planning/                  @asurt-fsai/leaders

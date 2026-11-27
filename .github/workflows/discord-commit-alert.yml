@@ -1,0 +1,58 @@
+name: Send Discord Commit Message on Push
+on: [push]
+
+permissions:
+  contents: read
+
+jobs:
+  discord_notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      #Master webhook
+      - name: Send Alert to Master CI Channel
+        uses: tristanbudd/discord-commit-github-action@master
+        with:
+          webhook-url: ${{ secrets.WEBHOOK_URL }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          show-commit-message: true
+          show-changed-files: true
+          show-commit-branch: true
+          show-commit-author: true
+          show-commit-link: true
+
+      #Subteam routing
+      - name: Resolve Subteam Channel Webhook
+        id: route
+        env:
+          BRANCH_NAME: ${{ github.ref_name }}
+        run: |
+          BRANCH_LOWER="${BRANCH_NAME,,}"
+          SECRET_NAME=""
+
+          case "$BRANCH_LOWER" in
+            "control")               SECRET_NAME="WEBHOOK_CONTROL" ;;
+            "perception-camera")     SECRET_NAME="WEBHOOK_PERCEPTION_CAMERA" ;;
+            "perception-lidar")      SECRET_NAME="WEBHOOK_PERCEPTION_LIDAR" ;;
+            "slam")                  SECRET_NAME="WEBHOOK_SLAM" ;;
+            "planning-classical")    SECRET_NAME="WEBHOOK_PLANNING_CLASSICAL" ;;
+            "planning-deeplearning") SECRET_NAME="WEBHOOK_PLANNING_DL" ;;
+            "planning-skidpad")      SECRET_NAME="WEBHOOK_PLANNING_SKIDPAD" ;;
+          esac
+
+          echo "secret_name=$SECRET_NAME" >> "$GITHUB_OUTPUT"
+
+      #Subteam mirroring
+      - name: Send Alert to Subteam Channel
+        if: steps.route.outputs.secret_name != ''
+        uses: tristanbudd/discord-commit-github-action@master
+        with:
+          webhook-url: ${{ secrets[steps.route.outputs.secret_name] }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          show-commit-message: true
+          show-changed-files: true
+          show-commit-branch: true
+          show-commit-author: true
+          show-commit-link: true

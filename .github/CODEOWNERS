@@ -1,0 +1,10 @@
+*                                       @asurt-fsai/leaders @asurt-fsai/ci-27
+/src/control/                           @asurt-fsai/leaders @asurt-fsai/ci-27 @asurt-fsai/control-27
+/src/perception-camera/                 @asurt-fsai/leaders @asurt-fsai/ci-27 @asurt-fsai/perception-camera-27
+/src/perception-lidar/                  @asurt-fsai/leaders @asurt-fsai/ci-27 @asurt-fsai/perception-lidar-27
+/src/planning-classical/                @asurt-fsai/leaders @asurt-fsai/ci-27 @asurt-fsai/classical-planning-27
+/src/planning-deeplearning/             @asurt-fsai/leaders @asurt-fsai/ci-27 @asurt-fsai/deeplearning-planning-27
+/src/planning-skidpad/                  @asurt-fsai/leaders @asurt-fsai/ci-27 @asurt-fsai/skidpad-planning-27
+/src/psi/                               @asurt-fsai/leaders @asurt-fsai/ci-27 @asurt-fsai/psi-27
+/src/slam/                              @asurt-fsai/leaders @asurt-fsai/ci-27 @asurt-fsai/slam-27
+/.github/                               @asurt-fsai/leaders @asurt-fsai/ci-27
